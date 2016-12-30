@@ -1,3 +1,3 @@
 Messenger project
-developers:
+developers:\n
 Will
