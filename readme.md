@@ -1,6 +1,4 @@
 
-Messenger project <br>
-developers:<br>
-Will<br>
-Yen
+Messenger project
+developers:Will, Yen
 
