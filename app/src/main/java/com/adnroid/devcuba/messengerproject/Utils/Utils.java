@@ -31,27 +31,35 @@ public class Utils {
          List<String> listPhone = new ArrayList<>();
          List<String> listName = new ArrayList<>();
 
-        Cursor cursorPhone = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                null, null, null);
-        Cursor cursorID = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
-                null,
-                null, null, null);
-        cursorPhone.moveToFirst();
 
-        cursorID.moveToFirst();
+            Cursor cursorPhone = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    null,
+                    null, null, null);
+            cursorPhone.moveToFirst();
+
+
+            Cursor cursorID = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
+                    null,
+                    null, null, null);
+
+
+            cursorID.moveToFirst();
+
+        if(cursorPhone.getCount()>0){
         do{
             listPhone.add(cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
             Log.d(TAG, "retrieveContactNumber: "+cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
         }while (cursorPhone.moveToNext());
         cursorPhone.close();
-        do{
-            listName.add(cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
-            Log.d(TAG, "retrieveContactNumber: "+cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
-        }while (cursorID.moveToNext());
-        cursorID.close();
-        Log.d(TAG, "SIZE: "+listName.size()+" - "+listPhone.size());
-
+        }
+        if(cursorID.getCount()>0) {
+            do {
+                listName.add(cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+                Log.d(TAG, "retrieveContactNumber: " + cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+            } while (cursorID.moveToNext());
+            cursorID.close();
+            Log.d(TAG, "SIZE: " + listName.size() + " - " + listPhone.size());
+        }
     }
 
 
