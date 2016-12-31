@@ -1,16 +1,10 @@
 package com.adnroid.devcuba.messengerproject;
 
-
 import android.content.pm.PackageManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
 import com.adnroid.devcuba.messengerproject.Utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         if(Utils.checkIsPhone(this))
         {
@@ -66,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request
         }
+
     }
 
 
