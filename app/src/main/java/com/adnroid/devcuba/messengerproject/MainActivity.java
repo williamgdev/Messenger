@@ -5,26 +5,25 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.adnroid.devcuba.messengerproject.Utils.Utils;
+import com.adnroid.devcuba.messengerproject.firebase.RegisterUser;
+import com.adnroid.devcuba.messengerproject.firebase.User;
+import com.adnroid.devcuba.messengerproject.fragment.UserFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UserFragment.OnRegisterUserListener {
 
-
-
+    RegisterUser registerUser = RegisterUser.getInstance();
+    UserFragment userFragment;
     private static final String TAG = MainActivity.class.getSimpleName();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if(Utils.checkIsPhone(this))
-        {
+        if (Utils.checkIsPhone(this)) {
             init();
-        }else{
-           // showError();
+        } else {
+            // showError();
         }
-
 
 
     }
@@ -60,14 +59,25 @@ public class MainActivity extends AppCompatActivity {
             // permissions this app might request
         }
 
+        userFragment = new UserFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_layout, userFragment)
+                .commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(User user) {
+        if (registerUser.saveUser(user)) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(userFragment)
+                    .commit();
+        }
     }
 
 
-
-
     //--------------------------
-
-
 
 
 }
