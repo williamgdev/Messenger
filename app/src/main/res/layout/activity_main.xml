@@ -16,6 +16,6 @@
         android:layout_height="match_parent"
         android:id="@+id/main_layout"
         android:orientation="vertical">
-        <include layout="@layout/user_register"/>
+        <include layout="@layout/messages_fragment"/>
         </LinearLayout>
 </LinearLayout>
