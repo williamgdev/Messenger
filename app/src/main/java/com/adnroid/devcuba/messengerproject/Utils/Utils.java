@@ -21,38 +21,29 @@ import java.util.List;
 
 public class Utils {
 
-
-
-
-
     private static final String TAG = Utils.class.getSimpleName();
 
     public static void getContacts(Context context) {
-         List<String> listPhone = new ArrayList<>();
-         List<String> listName = new ArrayList<>();
+        List<String> listPhone = new ArrayList<>();
+        List<String> listName = new ArrayList<>();
+        Cursor cursorPhone = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                null,
+                null, null, null);
+        cursorPhone.moveToFirst();
+        Cursor cursorID = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
+                null,
+                null, null, null);
 
+        cursorID.moveToFirst();
 
-            Cursor cursorPhone = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                    null,
-                    null, null, null);
-            cursorPhone.moveToFirst();
-
-
-            Cursor cursorID = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
-                    null,
-                    null, null, null);
-
-
-            cursorID.moveToFirst();
-
-        if(cursorPhone.getCount()>0){
-        do{
-            listPhone.add(cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
-            Log.d(TAG, "retrieveContactNumber: "+cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
-        }while (cursorPhone.moveToNext());
-        cursorPhone.close();
+        if (cursorPhone.getCount() > 0) {
+            do {
+                listPhone.add(cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+                Log.d(TAG, "retrieveContactNumber: " + cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+            } while (cursorPhone.moveToNext());
+            cursorPhone.close();
         }
-        if(cursorID.getCount()>0) {
+        if (cursorID.getCount() > 0) {
             do {
                 listName.add(cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
                 Log.d(TAG, "retrieveContactNumber: " + cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
@@ -63,8 +54,7 @@ public class Utils {
     }
 
 
-
-    public static void requestContactPermition(Activity activity){
+    public static void requestContactPermition(Activity activity) {
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.READ_CONTACTS)
@@ -90,7 +80,7 @@ public class Utils {
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
-        }else {
+        } else {
             //ejecutalo aki
 
             getContacts(activity);
@@ -98,12 +88,13 @@ public class Utils {
 
 
     }
-    public static boolean checkIsPhone(Context context){
-        TelephonyManager manager = (TelephonyManager)context.getSystemService(context.TELEPHONY_SERVICE);
-        if(manager.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE){
+
+    public static boolean checkIsPhone(Context context) {
+        TelephonyManager manager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+        if (manager.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) {
             Log.d(TAG, "checkIsPhone: Tablet");
             return false;
-        }else{
+        } else {
             Log.d(TAG, "checkIsPhone: Phone");
             return true;
         }

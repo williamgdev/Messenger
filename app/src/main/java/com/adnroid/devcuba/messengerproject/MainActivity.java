@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity implements UserFragment.OnRe
 
     private void init() {
         Utils.requestContactPermition(this);
+
+        userFragment = new UserFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_layout, userFragment)
+                .commit();
     }
 
 
@@ -59,11 +65,6 @@ public class MainActivity extends AppCompatActivity implements UserFragment.OnRe
             // permissions this app might request
         }
 
-        userFragment = new UserFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_layout, userFragment)
-                .commit();
     }
 
     @Override

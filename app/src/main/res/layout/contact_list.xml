@@ -9,7 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:src="@drawable/user_pacific" />
+        android:src="@drawable/user_pacific"
+        android:id="@+id/contact_imageView"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,7 +21,7 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/contact_name"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -30,7 +31,7 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:id="@+id/surname"
+            android:id="@+id/contact_phone"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
