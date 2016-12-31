@@ -3,20 +3,27 @@ package com.adnroid.devcuba.messengerproject;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.adnroid.devcuba.messengerproject.Utils.Utils;
+import com.adnroid.devcuba.messengerproject.adapter.ContactsAdapter;
 import com.adnroid.devcuba.messengerproject.firebase.RegisterUser;
 import com.adnroid.devcuba.messengerproject.firebase.User;
 import com.adnroid.devcuba.messengerproject.fragment.UserFragment;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements UserFragment.OnRegisterUserListener {
 
-    RegisterUser registerUser = RegisterUser.getInstance();
+    RegisterUser registerUser;
     UserFragment userFragment;
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        registerUser = RegisterUser.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Utils.checkIsPhone(this)) {
@@ -25,19 +32,22 @@ public class MainActivity extends AppCompatActivity implements UserFragment.OnRe
             // showError();
         }
 
-
     }
 
     private void init() {
         Utils.requestContactPermition(this);
-
-        userFragment = new UserFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_layout, userFragment)
-                .commit();
+//        userFragment = new UserFragment();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.main_layout, userFragment)
+//                .commit();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     //----------------------
 
@@ -75,6 +85,14 @@ public class MainActivity extends AppCompatActivity implements UserFragment.OnRe
                     .remove(userFragment)
                     .commit();
         }
+    }
+
+    public void onClic(View view) {
+        List<User> users = registerUser.getAllUsers();
+        RecyclerView recycler = (RecyclerView) findViewById(R.id.main_recycler);
+        ContactsAdapter adapter = new ContactsAdapter(users, this);
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recycler.setAdapter(adapter);
     }
 
 
