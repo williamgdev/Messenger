@@ -22,22 +22,12 @@ public class RegisterUser {
     private RegisterUser(){}
 
     public static RegisterUser getInstance(){
-        saveUser(new User(
-                "Willy",
-                "1 111 1111",
-                "123"
-        ));
-        saveUser(new User(
-                "Yendry",
-                "5 555 5555",
-                "123"
-        ));
         loadUsers();
         return instance;
     }
 
-    public static void saveUser(User user){
-        myRef.child(user.getPhone()).setValue(user);
+    public static boolean saveUser(User user){
+        return myRef.child(user.getPhone()).setValue(user) != null;
     }
 
     public static void loadUsers(){
